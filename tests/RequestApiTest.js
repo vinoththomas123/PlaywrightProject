@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test'
+/** @type {PlaywrightRequest} */
+let request;
 
 let baseURL;
 let config;
@@ -12,6 +14,7 @@ test.beforeAll('Before', () => {
 
         }
     }
+    
 });
 
 test('Get Request', async ({ request }) => {
@@ -33,4 +36,7 @@ test('Post Request', async ({ request }) => {
     console.log(response.status());
     expect(response.status()).toBe(201);
     console.log(await response.json());
-})
+    
+});
+
+

@@ -16,7 +16,7 @@ test.beforeAll('Before', async () => {
     apiContext = await PlaywrightRequest.newContext();
 });
 
-test('Get Request', async ({ }) => {
+test('Get Request', async ({ }) => {            //When using context do not pass it in the fixture
     let url = baseURL + "1";
     let response = await apiContext.get(url, { ...config, timeout: 30000 });
     let json = await response.json();
@@ -24,7 +24,7 @@ test('Get Request', async ({ }) => {
     console.log(response.status());
 })
 
-test('Post Request', async ({ }) => {
+test('Post Request', async ({ }) => {        //When using context do not pass it in the fixture
     const payload = {
         "title": "Test title",
         "body": "Test content",
@@ -36,3 +36,7 @@ test('Post Request', async ({ }) => {
     expect(response.status()).toBe(201);
     console.log(await response.json());
 })
+
+test.afterAll("After All", async () => {
+    await apiContext.dispose();
+});
