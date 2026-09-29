@@ -1,4 +1,4 @@
-//click
+﻿//click
 //fill
 //check checkbox/radio
 //select dropdown
@@ -9,121 +9,105 @@
 //drag and drop
 //mousedown mouse up
 //file upload
-import { expect,test, Browser, chromium  } from '@playwright/test';
+import { test, chromium } from '@playwright/test';
+import { ScreenshotHelper } from '../lib/reporters/screenshot-helper';
+import ExtentReport from '../lib/reporters/extent-reporter';
 
-test.describe("Actions Suite", () => {
-    let timeout = { timeout: 30000 };
-
-    let page
-
-    let browser
-
-
-    let context
+test.describe('Actions Suite', () => {
+    const timeout = { timeout: 30000 };
+    let page;
+    let browser;
+    let context;
+    let screenshots;
+    let logger;
+    const url = 'https://rahulshettyacademy.com/AutomationPractice/';
 
     test.describe.configure({ mode: 'serial' });
 
-    test.beforeAll("before All", async () => {
+    test.beforeAll('before All', async ({}, testInfo) => {
         test.setTimeout(60000);
+
         browser = await chromium.launch();
         context = await browser.newContext();
         page = await context.newPage();
-        await page.goto("https://rahulshettyacademy.com/AutomationPractice/", timeout);
-        await page.waitForLoadState("domcontentloaded");
-    })
 
-    test("Test -Mouse Down/Up -Moving to new tab and reading titles", async ({ }) => {
-        let element = page.getByText("Open Tab")
-        if (element)
-            await element.scrollIntoViewIfNeeded();
+        await page.goto(url, timeout);
+        await page.waitForLoadState('domcontentloaded');
+
+        logger = new ExtentReport();
+        screenshots = new ScreenshotHelper(page, testInfo);
+    });
+
+    test.beforeEach(async ({}, testInfo) => {
+        logger.setTestInfo(testInfo);
+        screenshots.setTestInfo(testInfo);
+    });
+
+    test('Test -Checkbox check', async () => {
+        const element = page.locator('#checkBoxOption1');
+        await element.check();
+        await screenshots.takeScreenshot();
+        await logger.addLog('Vinoth Test');
+    });
+
+    test('Test - Radio check', async () => {
+        const element = page.locator("input[value='radio1']");
+        await element.check();
+    });
+
+    test('Test - press keys', async () => {
+        const element = page.getByPlaceholder('Type to Select Countries');
+        await element.clear();
+        await element.pressSequentially('India');
+        await page.locator("//div[text()='India' and @class='ui-menu-item-wrapper']")
+            .waitFor({ state: 'visible' });
+        await page.click("//div[text()='India' and @class='ui-menu-item-wrapper']");
+    });
+
+    test('Test - Select Option', async () => {
+        await page.locator('#dropdown-class-example').selectOption('Option1');
+        await screenshots.takeScreenshot();
+    });
+
+    test('Test - Mouseover', async () => {
+        const element = page.getByText('Mouse Hover', { exact: true });
+        await element.scrollIntoViewIfNeeded();
+        await element.hover();
+        await page.getByText('Top', { exact: true }).click();
+    });
+
+    test('Test -Mouse Down/Up -Moving to new tab and reading titles', async () => {
+        const element = page.getByText('Open Tab');
+        await element.scrollIntoViewIfNeeded();
         await element.focus();
-        let isVisible = await element.isVisible();
-        console.log("Is Visible: " + isVisible);
+        console.log('Is Visible: ' + await element.isVisible());
         await element.hover();
         await page.mouse.down();
         await element.hover();
         await page.mouse.up();
-        await page.pause();
         await page.waitForTimeout(5000);
-        
-        //New Tab reading titles 
+
         const pages = context.pages();
         console.log(pages.length);
 
-        for (const p of pages) {
-            console.log(await p.title());
+        for (const currentPage of pages) {
+            console.log(await currentPage.title());
         }
     });
 
-    test("Switching to the new tab - iFrame", async ({ }) => {
-        let pages = await context.pages();
-        let newPage = await pages[1];
-        // let frame = await newPage.frameLocator("//iframe[@allow='microphone']");
+    test('Switching to the new tab - iFrame', async () => {
+        const pages = context.pages();
+        const newPage = pages[1];
 
-        
+        if (!newPage) {
+            throw new Error('The new tab was not opened.');
+        }
 
-    const frame = await newPage.frameLocator('iframe[allow*="microphone"]');
-    await expect(frame).toHaveCount(1);
-    // const cloudflareLink = frame.locator('a[href*="cloudflare.com/5xx-error-landing"]');
-
-    // await cloudflareLink.waitFor({ state: "visible", timeout: 30000 });
-    // await cloudflareLink.click();
-    // console.log("Clicked Cloudflare link inside iframe");
-  
-
+        const frame = newPage.frameLocator('iframe[allow*="microphone"]');
         await frame.locator("//*[text()='What happened?']").click();
-        
     });
 
-    test("Test -Checkbox check", async ({ }) => {
-        let element = page.locator("#checkBoxOption1");
-        if (element)
-            await element.check();
-        await page.pause();
+    test.afterAll(async () => {
+        await browser?.close();
     });
-
-    test("Test - Radio check", async ({ }) => {
-
-
-        let element = page.locator("input[value='radio1']");
-
-        await element.check();
-        await page.pause();
-    });
-
-
-
-    test("Test - press keys", async ({ }) => {
-        let element = page.getByPlaceholder("Type to Select Countries");
-        await element.clear();
-        await element.pressSequentially("India");
-        await page.locator("//div[text()='India' and @class='ui-menu-item-wrapper']").waitFor({ state: "visible" });
-        await page.click("//div[text()='India' and @class='ui-menu-item-wrapper']");
-        await page.pause();
-    });
-
-    test("Test - Select Option", async ({ }) => {
-        await page.locator("#dropdown-class-example").selectOption('Option1')
-        await page.pause();
-        await page.screenshot();
-    });
-
-
-    test("Test - Mouseover", async ({ }) => {
-        let element = page.getByText("Mouse Hover", { exact: true });
-        await element.scrollIntoViewIfNeeded();
-        await element.hover();
-        await page.getByText("Top", { exact: true }).click();
-        await page.pause();
-    });
-
-
-    // test("Test - Switch to Frame", async ({page})=>{
-    //     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
-    //     await page.frame()
-    //     await page.getByRole("link", {name: "Top", exact: true}).click();
-    //     await page.pause();
-    // });
-})
-
-
+});

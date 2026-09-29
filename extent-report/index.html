@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Playwright Extent Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 10px; vertical-align: top; }
+        th { background-color: #f2f2f2; }
+        .passed { color: green; font-weight: bold; }
+        .failed { color: red; font-weight: bold; }
+        .skipped { color: orange; font-weight: bold; }
+        .error { color: red; white-space: pre-wrap; }
+        .logs {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: pre-wrap;
+            max-width: 500px;
+            overflow-x: auto;
+        }
+        .screenshot { margin-bottom: 15px; }
+        .screenshot img { border: 1px solid #ccc; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Playwright Test Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Test</th>
+                <th>Status</th>
+                <th>Duration</th>
+                <th>Error</th>
+                <th>Console Logs</th>
+                <th>Screenshots</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>Test -Checkbox check</td>
+                <td class="failed">
+                    failed
+                </td>
+                <td>1 ms</td>
+                <td class="error">Error: page.goto: net::ERR_NETWORK_ACCESS_DENIED at https://rahulshettyacademy.com/AutomationPractice/
+Call log:
+[2m  - navigating to &quot;https://rahulshettyacademy.com/AutomationPractice/&quot;, waiting until &quot;load&quot;[22m
+</td>
+                <td><em>No logs</em></td>
+                <td>
+                <div class="screenshot">
+                    <strong>screenshot</strong><br>
+                    <img
+                        src="../test-results/ActionsTest.js-Actions-Suite-Test--Checkbox-check-chromium/test-failed-1.png"
+                        alt="screenshot"
+                        width="400"
+                    >
+                </div>
+            </td>
+            </tr>
+        
+            <tr>
+                <td>Test - Radio check</td>
+                <td class="skipped">
+                    skipped
+                </td>
+                <td>0 ms</td>
+                <td class="error"></td>
+                <td><em>No logs</em></td>
+                <td><em>No screenshots</em></td>
+            </tr>
+        
+            <tr>
+                <td>Test - press keys</td>
+                <td class="skipped">
+                    skipped
+                </td>
+                <td>0 ms</td>
+                <td class="error"></td>
+                <td><em>No logs</em></td>
+                <td><em>No screenshots</em></td>
+            </tr>
+        
+            <tr>
+                <td>Test - Select Option</td>
+                <td class="skipped">
+                    skipped
+                </td>
+                <td>0 ms</td>
+                <td class="error"></td>
+                <td><em>No logs</em></td>
+                <td><em>No screenshots</em></td>
+            </tr>
+        
+            <tr>
+                <td>Test - Mouseover</td>
+                <td class="skipped">
+                    skipped
+                </td>
+                <td>0 ms</td>
+                <td class="error"></td>
+                <td><em>No logs</em></td>
+                <td><em>No screenshots</em></td>
+            </tr>
+        
+            <tr>
+                <td>Test -Mouse Down/Up -Moving to new tab and reading titles</td>
+                <td class="skipped">
+                    skipped
+                </td>
+                <td>0 ms</td>
+                <td class="error"></td>
+                <td><em>No logs</em></td>
+                <td><em>No screenshots</em></td>
+            </tr>
+        
+            <tr>
+                <td>Switching to the new tab - iFrame</td>
+                <td class="skipped">
+                    skipped
+                </td>
+                <td>0 ms</td>
+                <td class="error"></td>
+                <td><em>No logs</em></td>
+                <td><em>No screenshots</em></td>
+            </tr>
+        
+        </tbody>
+    </table>
+</body>
+</html>

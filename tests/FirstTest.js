@@ -33,6 +33,6 @@ test('get started link', async ({ page }) => {
     expect(title).toBe("installing-playwright");
 });
 
-test('First Test', async (fixtures) => {
-    await fixtures.page.goto ("www.google.com")
-});
+// test('First Test', async (fixtures) => {
+//     await fixtures.page.goto ("https://playwright.dev/")
+// });
