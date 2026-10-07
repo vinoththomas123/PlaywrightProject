@@ -41,9 +41,12 @@ pipeline {
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'playwright-report',
-                reportFiles: 'index.html',
-                reportName: 'Playwright HTML Report'
+                // reportDir: 'playwright-report',
+                // reportFiles: 'index.html',
+                // reportName: 'Playwright HTML Report'
+                reportDir: 'test-results',
+                reportFiles: 'extent-report.html',
+                reportName: 'Extent Report'
             ])
         }
     }
