@@ -6,8 +6,7 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
-
-
+    "test:chrome":"playwright test --project=chromium",
     "report": "start extent-report/index.html"
     
   },
