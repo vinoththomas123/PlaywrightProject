@@ -9,11 +9,11 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }        //not requiered since from jenkins pipeline git checkout is done
 
         stage('Install Dependencies') {
             steps {
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npx playwright test'
+                bat 'npx playwright test --project=chromium'
             }
         }
     }

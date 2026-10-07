@@ -13,7 +13,7 @@ test("Test2", async ({page})=>{
 //    let ele = await page.locator("//a[text()='API']")
 //    await ele.fill("sdfgsd");
 
-   page.pause();
+   // page.pause();
     page.waitForTimeout(10000);
 })
 

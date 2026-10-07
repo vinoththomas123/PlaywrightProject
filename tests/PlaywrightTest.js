@@ -28,7 +28,7 @@ test("Test1", async ()=>{
 
 test("Test2", async ()=>{
    await page.click("//a[text()='API']");
-   await page.fill("//a[text()='API']");
+   // await page.fill("//a[text()='API']");
 
    await page.locator("//a[text()='API']").click()
 })
